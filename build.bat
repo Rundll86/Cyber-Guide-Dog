@@ -1,0 +1,1 @@
+pyinstaller -F cyber-guide-dog.py -i favicon.ico --add-data "unrar.exe;."
