@@ -1,5 +1,5 @@
 print("Cyber-Guide-Dog 赛博导盲犬 v1.0.0")
-import os, winshell, conkits, colorama
+import os, winshell, conkits, colorama, msvcrt
 import zipfile, rarfile, py7zr
 from win32com.client import Dispatch
 from rich import print
@@ -71,3 +71,5 @@ for i in archive_list:
     shortcut.WorkingDirectory = game_path
     shortcut.save()
 print("Done!")
+print("Press any key to exit...")
+msvcrt.getch()
