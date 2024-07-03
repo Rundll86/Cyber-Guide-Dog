@@ -49,27 +49,32 @@ for i in archive_list:
     i.extractall(game_path)
     print("Finding game entry...")
     game_main = []
-    for root, dirs, files in os.walk("."):
+    for root, dirs, files in os.walk(game_path):
         for file in files:
             if os.path.splitext(file)[1].upper() == ".EXE":
                 game_main.append(file)
-    if not game_main:
+    if len(game_main)==0:
         print(f"Cannot find game entry, skipping {i.filename}.")
         continue
+    game_main.insert(0,"Skip")
     selector = conkits.Choice(options=game_main)
     print(
         "Found lots of game entry, select which one is right(If you can't read HUMAN'S TEXT, ask others)."
     )
     print("[yellow](Use arrow keys ↑↓)[/yellow]")
-    game_main = game_main[selector.run()]
-    print(
-        f"Selected \\[{os.path.splitext(game_main)[0]}], creating desktop shortcut..."
-    )
-    shell = Dispatch("WScript.Shell")
-    shortcut = shell.CreateShortCut(os.path.join(winshell.desktop(), i_ext[0] + ".lnk"))
-    shortcut.Targetpath = use_game_database(i_ext[0], game_main)
-    shortcut.WorkingDirectory = game_path
-    shortcut.save()
+    selected=selector.run()
+    if selected==0:
+        print("[red]Skipped.[/red]")
+    else:
+        game_main = game_main[selected]
+        print(
+            f"Selected [green]\\[{os.path.splitext(game_main)[0]}][/green], creating desktop shortcut..."
+        )
+        shell = Dispatch("WScript.Shell")
+        shortcut = shell.CreateShortCut(os.path.join(winshell.desktop(), i_ext[0] + ".lnk"))
+        shortcut.Targetpath = use_game_database(i_ext[0], game_main)
+        shortcut.WorkingDirectory = game_path
+        shortcut.save()
 print("Done!")
 print("Press any key to exit...")
 msvcrt.getch()
