@@ -59,9 +59,9 @@ for i in archive_list:
     game_main.insert(0,"Skip")
     selector = conkits.Choice(options=game_main)
     print(
-        "Found lots of game entry, select which one is right(If you can't read HUMAN'S TEXT, ask others)."
+        "Found lots of game entry, select which one is your game [red](If you can't read HUMAN'S TEXT, ask others)[/red]."
     )
-    print("[yellow](Use arrow keys ↑↓)[/yellow]")
+    print("[yellow](Use keypad WS to select and Enter to confirm)[/yellow]")
     selected=selector.run()
     if selected==0:
         print("[red]Skipped.[/red]")
